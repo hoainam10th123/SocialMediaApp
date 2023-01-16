@@ -3,7 +3,7 @@
 ## Các tính năng chính trên app, ko có trên web (React)
 
 <ol>
-  <li>Push notification với One SignalR</li>
+  <li>Push notification với One Signal</li>
   <li>Bong bóng chat native koltin</li>
   <li>Video call 1-1 Agora SDK</li>
   <li>Phân Trang bài viết, bình luận</li>
