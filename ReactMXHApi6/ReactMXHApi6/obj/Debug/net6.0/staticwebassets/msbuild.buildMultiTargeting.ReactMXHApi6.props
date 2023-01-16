@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ReactMXHApi6.props" />
+</Project>

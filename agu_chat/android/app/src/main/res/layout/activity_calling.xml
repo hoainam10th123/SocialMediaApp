@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:src="@drawable/netcore" />
+
+        <TextView
+            android:id="@+id/tvTittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Cuộc gọi video mới"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_no"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/circle_button"
+                android:clickable="true"
+                android:text="No"
+                android:textColor="#5DBCD2"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_yes"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/circle_button"
+                android:clickable="true"
+                android:text="Yes"
+                android:textColor="#5DBCD2"
+                android:textStyle="bold"
+                android:onClick="answerCalling"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

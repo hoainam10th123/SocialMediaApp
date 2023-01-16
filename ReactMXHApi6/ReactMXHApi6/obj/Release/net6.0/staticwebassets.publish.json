@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "On8GvYYP49t2hNA6W890R+TfLGj7XeAcKTQ4zr2BSDk=",
+  "Source": "ReactMXHApi6",
+  "BasePath": "_content/ReactMXHApi6",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ReactMXHApi6\\wwwroot",
+      "Source": "ReactMXHApi6",
+      "ContentRoot": "E:\\DOTNETCORECODE\\ReactMXHApi6\\ReactMXHApi6\\wwwroot\\",
+      "BasePath": "_content/ReactMXHApi6",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\DOTNETCORECODE\\ReactMXHApi6\\ReactMXHApi6\\wwwroot\\images\\post2.jpg",
+      "SourceId": "ReactMXHApi6",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\DOTNETCORECODE\\ReactMXHApi6\\ReactMXHApi6\\wwwroot\\",
+      "BasePath": "_content/ReactMXHApi6",
+      "RelativePath": "images/post2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\post2.jpg"
+    }
+  ]
+}
