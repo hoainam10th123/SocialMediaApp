@@ -1,4 +1,4 @@
-# SocialMediaApp
+# SocialMediaApp - DotNet 6 & React 18 & FLutter 3
 
 ## Các tính năng chính trên app, ko có trên web (React)
 
@@ -7,6 +7,7 @@
   <li>Bong bóng chat native koltin</li>
   <li>Video call 1-1 Agora SDK</li>
   <li>Phân Trang bài viết, bình luận</li>
+  <li>Một chút Machine learning thú vị (tích hợp ở BE)</li>
 </ol>
 
 ![alt text for screen readers](picture/aguchat1.png "Text to show on mouseover")
