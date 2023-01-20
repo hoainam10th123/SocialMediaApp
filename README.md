@@ -19,3 +19,5 @@ Demo: https://youtu.be/AAM5uZhH8s8
 ![alt text for screen readers](picture/aguchat3.png "Text to show on mouseover")
 
 ![alt text for screen readers](picture/aguchat4.png "Text to show on mouseover")
+
+![alt text for screen readers](picture/aguchat5.png "Text to show on mouseover")
