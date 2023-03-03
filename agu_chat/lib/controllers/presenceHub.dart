@@ -1,16 +1,24 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:agu_chat/models/comment.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 import 'package:get/get.dart';
+import '../models/last_message_chat.dart';
 import '../models/member.dart';
 import '../models/user.dart';
 import '../utils/const.dart';
 import '../utils/global.dart';
 import 'messageHub.dart';
+import 'package:http/http.dart' as http;
+
 
 class PresenceHubController extends GetxController {
   var users = <Member>[].obs;
   var userSelected = Member(unReadMessageCount: 0).obs;
   final messagesController = Get.put(MessagesHubController());
+  var lastMessages = <LastMessageChat>[].obs;
+  var isLoading = false.obs;
   HubConnection? _hubConnection;
 
   void createHubConnection(User? user) {
@@ -87,13 +95,13 @@ class PresenceHubController extends GetxController {
     final memberServer = parameters![0] as Map<String, dynamic>;
     final member = Member.fromJson(memberServer);
 
-    Global.myStream!.increaseUnreadMessage(member.userName!);
-
-    /*int index = users.indexWhere(
-            (f) => f.userName == member.userName);
+    int index = lastMessages.indexWhere(
+            (f) => f.senderUsername == member.userName!); //message['senderUsername']
     if (index != -1) {
-      users[index].unReadMessageCount++;
-    }*/
+      lastMessages[index].unreadCount++;
+      lastMessages[index] = lastMessages[index];
+    }
+
   }
 
   void stopHubConnection() {
@@ -138,4 +146,31 @@ class PresenceHubController extends GetxController {
       print(e.toString());
     }
   }*/
+  Future<String> fetchLastMessages() async{
+    String messageRes = '';
+    try {
+      isLoading.value = true;
+      final uri = Uri.parse('$urlBase/api/LastMessageChats?pageNumber=1&pageSize=5');
+
+      var response = await http.get(uri, headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ${Global.user!.token}',
+        HttpHeaders.contentTypeHeader: 'application/json',
+      });
+
+      if (response.statusCode == 200) {
+        List<dynamic> list = jsonDecode(response.body);
+        lastMessages.value = list.map<LastMessageChat>((json) => LastMessageChat.fromJson(json)).toList();
+        messageRes = '200';
+        isLoading.value = false;
+      } else {
+        messageRes = '${response.statusCode} ${response.body}';
+        isLoading.value = false;
+      }
+    } catch (e) {
+      messageRes = e.toString();
+      isLoading.value = false;
+    }
+    return messageRes;
+  }
+
 }

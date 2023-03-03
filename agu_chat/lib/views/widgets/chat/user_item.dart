@@ -10,6 +10,7 @@ class UserItem extends StatelessWidget {
   final String username;
   final String displayName;
   final String content;
+  int unreadMessage = 0;
   String? imageUrl;// fix error type NULL not sub type of String, because senderImgUrl can return null
 
   UserItem(
@@ -17,7 +18,8 @@ class UserItem extends StatelessWidget {
       required this.username,
       required this.displayName,
       required this.content,
-        required this.imageUrl
+        required this.imageUrl,
+        required this.unreadMessage
       })
       : super(key: key);
 
@@ -82,15 +84,16 @@ class UserItem extends StatelessWidget {
               ),
             ),
             Badge(
-                badgeContent: StreamBuilder(
-                  stream: Global.myStream!.unReadMessageStream,
-                  builder: (context, snapshot) => snapshot.hasData ? Text(
-                    (snapshot.data as UnreadMessage).username == username ? (snapshot.data as UnreadMessage).count.toString() : "0",
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                  ): Text(''),
-                )
+                badgeContent: getBadgeText()
             ),
           ],
         ));
+  }
+
+  Widget getBadgeText(){
+    if(unreadMessage > 0){
+      return Text(unreadMessage.toString(), style: const TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold));
+    }
+    return const Text("");
   }
 }

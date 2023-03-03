@@ -2,7 +2,6 @@ import 'package:agu_chat/views/widgets/chat/user_infor.dart';
 import 'package:agu_chat/views/widgets/chat/user_item.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../controllers/lastMessageChat.dart';
 import '../controllers/presenceHub.dart';
 import '../utils/global.dart';
 import 'detail_chat_screen.dart';
@@ -17,13 +16,11 @@ class ChatScreen extends StatefulWidget {
 
 class ChatScreenState extends State<ChatScreen> {
   final PresenceHubController presenceHub = Get.find();
-  final LastMessageChatController lastMessageChat =
-      Get.put(LastMessageChatController());
 
   @override
   void initState() {
     super.initState();
-    lastMessageChat.fetchLastMessages().then((value) => {
+    presenceHub.fetchLastMessages().then((value) => {
       if(value != '200'){
         Fluttertoast.showToast(
             msg: value,
@@ -67,28 +64,29 @@ class ChatScreenState extends State<ChatScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height - 190,
               child: Obx(
-                () => lastMessageChat.isLoading == true ? const Center(
+                () => presenceHub.isLoading.value == true ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : ListView.builder(
-                        itemCount: lastMessageChat.lastMessages.length,
+                        itemCount: presenceHub.lastMessages.length,
                         itemBuilder: (context, index) => GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => DetailChatScreen(userName: lastMessageChat
+                                      builder: (context) => DetailChatScreen(userName: presenceHub
                                           .lastMessages[index].senderUsername,)
                                   ),
                                 );
                               },
-                              child: UserItem(username: lastMessageChat
+                              child: UserItem(username: presenceHub
                                   .lastMessages[index].senderUsername,
-                                displayName: lastMessageChat
+                                displayName: presenceHub
                                     .lastMessages[index].senderDisplayName,
                                 content:
-                                    lastMessageChat.lastMessages[index].content,
-                                imageUrl: lastMessageChat.lastMessages[index].senderImgUrl,
+                                presenceHub.lastMessages[index].content,
+                                imageUrl: presenceHub.lastMessages[index].senderImgUrl,
+                                unreadMessage: presenceHub.lastMessages[index].unreadCount,
                               ),
                             )),
               ),
