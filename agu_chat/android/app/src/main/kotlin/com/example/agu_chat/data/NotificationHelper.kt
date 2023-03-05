@@ -144,23 +144,13 @@ class NotificationHelper(private val context: Context) {
         // Let's add some more content to the notification in case it falls back to a normal
         // notification.
         val messagingStyle = NotificationCompat.MessagingStyle(user)
-        /*val lastId = chat.messages.last().id
-        for (message in chat.messages) {
-            val m = NotificationCompat.MessagingStyle.Message(
-                message.text,
-                message.timestamp,
-                if (message.isIncoming) person else null
-            ).apply {
-                if (message.photoUri != null) {
-                    setData(message.photoMimeType, message.photoUri)
-                }
-            }
-            if (message.id < lastId) {
-                messagingStyle.addHistoricMessage(m)
-            } else {
-                messagingStyle.addMessage(m)
-            }
-        }*/
+
+        val m = NotificationCompat.MessagingStyle.Message(
+            "message.text",
+            123456,
+            person
+        )
+        messagingStyle.addMessage(m)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_NEW_MESSAGES)
             // A notification can be shown as a bubble by calling setBubbleMetadata()
