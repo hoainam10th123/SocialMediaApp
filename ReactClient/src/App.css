@@ -1,0 +1,138 @@
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.centerd-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.online {
+  color: forestgreen;
+  animation: fa-blink 1.5s linear infinite;
+}
+
+.lb-pos {
+  position: absolute;
+  right: -2px;
+  bottom: 1px;
+}
+
+.new-feed-max-height-live-stream {
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+}
+
+.border-green {
+  border: 3px solid green;
+}
+
+.margin{
+  margin: 10px;
+}
+
+#user-live-stream:hover{
+  cursor: pointer;
+}
+
+.img-block{
+  position: absolute;
+  top: 78%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header-profile{
+  margin-top: 5px;
+  background-color: rgba(233, 224, 233, 0.336);
+}
+
+.fit-img{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+
+.child-right {
+  margin-left: auto;
+  order: 2;
+}
+
+.message-send {
+  background-color: rgba(73, 73, 250, 0.972);
+  color: white;
+}
+
+.message-body {
+  background-color: rgba(230, 225, 225, 0.603);
+  border-radius: 10px;
+  padding: 5px;
+  max-width: 80%;
+}
+
+.parent-sent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.chat-box {
+  position: fixed;
+  width: 320px;
+  z-index: 999;
+  right: 250px;
+  bottom: 1px;
+}
+
+.chat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mr-5{
+  margin: 5px;
+}
+
+.label-u{
+  position: absolute;
+  right: -5px;
+}
+
+.mini-list{
+  position: fixed;
+  right: 25px;
+  bottom: 45px;
+  z-index: 322;
+}
+
+.edit{
+  background-color: rgba(233, 227, 227, 0.959);
+  height: 45px;
+  width: 45px;
+}
+
+.friend-list{
+  position: fixed;
+  max-width: 400px;
+  right: 25px;
+  bottom: 1px;
+  z-index: 222;
+}
+
+.hidden{
+  display: none;
+}
+
+.center-loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
