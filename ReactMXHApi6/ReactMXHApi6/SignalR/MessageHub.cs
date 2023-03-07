@@ -87,7 +87,7 @@ namespace ReactMXHApi6.SignalR
                 {
                     var user = await _unitOfWork.UserRepository.GetMemberAsync(userName);
                     // gui tin hieu den RecipientUsername, de hien thi chatbox cua userName gui tin nhan
-                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", user);
+                    await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", user, createMessageDto.Content);
                 }
                 //send push notification to user when chat 1-1
                 var toPlayers = await _unitOfWork.OneSignalRepository.GetUserByUsername(createMessageDto.RecipientUsername);

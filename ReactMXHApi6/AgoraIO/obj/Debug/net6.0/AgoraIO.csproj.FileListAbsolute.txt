@@ -10,15 +10,3 @@ E:\DOTNETCORECODE\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.dll
 E:\DOTNETCORECODE\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\refint\AgoraIO.dll
 E:\DOTNETCORECODE\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.pdb
 E:\DOTNETCORECODE\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\ref\AgoraIO.dll
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\bin\Debug\net6.0\AgoraIO.deps.json
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\bin\Debug\net6.0\AgoraIO.dll
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\bin\Debug\net6.0\AgoraIO.pdb
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.csproj.AssemblyReference.cache
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.AssemblyInfoInputs.cache
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.AssemblyInfo.cs
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.csproj.CoreCompileInputs.cache
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.dll
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\refint\AgoraIO.dll
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\AgoraIO.pdb
-C:\Users\hoain\source\repos\ReactMXHApi6\AgoraIO\obj\Debug\net6.0\ref\AgoraIO.dll
