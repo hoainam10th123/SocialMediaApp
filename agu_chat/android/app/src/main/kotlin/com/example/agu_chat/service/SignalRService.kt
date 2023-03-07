@@ -29,6 +29,7 @@ import io.reactivex.rxjava3.core.Single
 
 class SignalRService : Service(){
     private var hubConnection: HubConnection? = null
+    private var notificationHelper: NotificationHelper? = null
 
     companion object {
         var token = ""
@@ -45,6 +46,8 @@ class SignalRService : Service(){
             1,
             Notification()
         )
+        notificationHelper = NotificationHelper(applicationContext)
+        notificationHelper!!.setUpNotificationChannels()
         super.onCreate()
     }
 
@@ -118,7 +121,7 @@ class SignalRService : Service(){
         )
 
         hubConnection?.on("NewMessageReceived",
-            Action1 { member ->
+            Action2 { member, contentMesage ->
                 Log.i("NewMessageReceived", "Message Received from: ${member.displayName}")
                 /*val bubleIntent = Intent(this, BubbleActivity::class.java)
                 bubleIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -128,12 +131,10 @@ class SignalRService : Service(){
                 val sh: SharedPreferences = getSharedPreferences("REF", Context.MODE_MULTI_PROCESS)
                 val isBackground = sh.getBoolean("background", true)
                 if(isBackground){
-                    val notificationHelper = NotificationHelper(applicationContext)
-                    notificationHelper.setUpNotificationChannels()
-                    notificationHelper.showNotification(Constanst.contacts.toList(), member, true)
+                    notificationHelper!!.showNotification(contentMesage, Constanst.contacts.toList(), member, true)
                 }
             },
-            Member::class.java
+            Member::class.java, String::class.java
         )
 
         hubConnection?.on(

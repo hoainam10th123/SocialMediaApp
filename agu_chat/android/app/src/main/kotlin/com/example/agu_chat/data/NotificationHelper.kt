@@ -25,7 +25,6 @@ import com.example.agu_chat.*
 import com.example.agu_chat.model.Constanst
 import com.example.agu_chat.model.Member
 import java.util.*
-import kotlin.random.Random.Default.nextInt
 
 /**
  * Handles all operations related to [Notification].
@@ -124,7 +123,11 @@ class NotificationHelper(private val context: Context) {
     }
 
     @WorkerThread
-    fun showNotification(memberOnline:List<Member>, chat: Member, fromUser: Boolean, update: Boolean = false) {
+    fun showNotification(mesageContent: String,
+                         memberOnline:List<Member>,
+                         chat: Member,
+                         fromUser: Boolean,
+                         update: Boolean = false) {
         updateShortcuts(chat, memberOnline)
         val iconUri = "content://com.example.android.people/icon/${chat.userName}".toUri()
         val icon = IconCompat.createWithAdaptiveBitmapContentUri(iconUri)
@@ -145,11 +148,7 @@ class NotificationHelper(private val context: Context) {
         // notification.
         val messagingStyle = NotificationCompat.MessagingStyle(user)
 
-        val m = NotificationCompat.MessagingStyle.Message(
-            "message.text",
-            123456,
-            person
-        )
+        val m = NotificationCompat.MessagingStyle.Message(mesageContent, System.currentTimeMillis(), person)
         messagingStyle.addMessage(m)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_NEW_MESSAGES)
@@ -247,7 +246,7 @@ class NotificationHelper(private val context: Context) {
             // message badge icon on the collapsed bubble is removed.
             val memberTemp = Constanst.contacts.find { member -> member.userName == chat }
             if (memberTemp != null) {
-                showNotification(Constanst.contacts.toList(), memberTemp, fromUser = false, update = true)
+                showNotification("",Constanst.contacts.toList(), memberTemp, fromUser = false, update = true)
             }
         } else {
             dismissNotification(chat)
