@@ -12,6 +12,8 @@ Demo: https://youtu.be/AAM5uZhH8s8
   <li>Một chút Machine learning thú vị (tích hợp ở BE)</li>
 </ol>
 
+![alt text for screen readers](picture/chatbubbleImage.png "Text to show on mouseover")
+
 ![alt text for screen readers](picture/aguchat1.png "Text to show on mouseover")
 
 ![alt text for screen readers](picture/aguchat2.png "Text to show on mouseover")
