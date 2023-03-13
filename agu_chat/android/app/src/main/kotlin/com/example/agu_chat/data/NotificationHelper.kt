@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
@@ -14,7 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.WorkerThread
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
-import androidx.core.app.RemoteInput
+//import androidx.core.app.RemoteInput
 import androidx.core.content.LocusIdCompat
 import androidx.core.content.getSystemService
 import androidx.core.content.pm.ShortcutInfoCompat
@@ -24,6 +25,9 @@ import androidx.core.net.toUri
 import com.example.agu_chat.*
 import com.example.agu_chat.model.Constanst
 import com.example.agu_chat.model.Member
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
 
 /**
@@ -65,11 +69,11 @@ class NotificationHelper(private val context: Context) {
     @WorkerThread
     fun updateShortcuts(importantContact: Member?, memberOnline: List<Member>) {
         var shortcuts = memberOnline.map { contact ->
-            val icon = IconCompat.createWithAdaptiveBitmap(
-                context.resources.assets.open("cat.jpg").use { input ->
-                    BitmapFactory.decodeStream(input)
-                }
-            )
+            val icon = getImageForUser(contact)?.let {
+                IconCompat.createWithAdaptiveBitmap(
+                    it
+                )
+            }
             // Create a dynamic shortcut for each of the contacts.
             // The same shortcut ID will be used when we show a bubble notification.
             ShortcutInfoCompat.Builder(context, "contact_${contact.userName}")
@@ -108,6 +112,45 @@ class NotificationHelper(private val context: Context) {
         for (shortcut in shortcuts) {
             ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
         }
+    }
+
+    //
+    private fun getImageForUser(contact: Member): Bitmap? {
+        var bitmapImgFromUrl: Bitmap? = null
+        // neu imageUrl != null thi tao imageUrl thanh bimap
+        bitmapImgFromUrl = if(contact.imageUrl != null){
+            getBitmapFromUrl(contact.imageUrl)
+        }else{
+            // neu imageUrl null thi lay anh mac dinh "cat.jpg"
+            context.resources.assets.open("cat.jpg").use { input ->
+                BitmapFactory.decodeStream(input)
+            }
+        }
+        return bitmapImgFromUrl
+    }
+
+    // convert imagUrl thanh bimap
+    private fun getBitmapFromUrl(urlString: String): Bitmap? {
+        var bitmap: Bitmap? = null
+        var inputStream: InputStream? = null
+        var urlConnection: HttpURLConnection? = null
+
+        try {
+            val url = URL(urlString)
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doInput = true
+            urlConnection.connect()
+
+            inputStream = urlConnection.inputStream
+            bitmap = BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            urlConnection?.disconnect()
+            inputStream?.close()
+        }
+
+        return bitmap
     }
 
     private fun flagUpdateCurrent(mutable: Boolean): Int {
