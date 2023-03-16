@@ -21,10 +21,10 @@ export default observer(function CallOneToOneModal() {
     useEffect(() => {
         //channel la user goi di
         const chanelName = userStore.channelname?? userStore.user?.username;
-
+        client.setClientRole('host').then(()=> console.log(''))
         agent.Agora.getRtcToken({ uid: userStore.user?.username, channelName: chanelName }).then(res => {
-            try {
-                join('9c29102f9b5749988c092d4d9bab52e9', chanelName, res.token, userStore.user?.username);
+            try {                      
+                join('9c29102f9b5749988c092d4d9bab52e9', chanelName, res.token, userStore.user?.username)                
             } catch (error) {
                 console.error(error);
                 toast.error('Error while join channel agora');
