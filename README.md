@@ -10,6 +10,7 @@ Demo: https://youtu.be/AAM5uZhH8s8
   <li>Video call 1-1 Agora SDK</li>
   <li>Phân Trang bài viết, bình luận</li>
   <li>Một chút Machine learning thú vị (tích hợp ở BE)</li>
+  <li>Nên chạy trên Android 12</li>
 </ol>
 
 ![alt text for screen readers](picture/chatbubbleImage.png "Text to show on mouseover")
