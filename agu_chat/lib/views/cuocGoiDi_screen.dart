@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:agora_rtc_engine/rtc_engine.dart';
-import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
-import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:get/get.dart';
 import '../controllers/presenceHub.dart';
 import '../services/agoraService.dart';
@@ -41,9 +38,10 @@ class CuocGoiDiScreenState extends State<CuocGoiDiScreen>{
   }
 
   @override
-  void dispose() {
+  void dispose() async{
+    await _engine.leaveChannel();
+    _engine.release();
     super.dispose();
-    _engine.destroy();
   }
 
   Future<void> initAgora() async {
@@ -55,33 +53,52 @@ class CuocGoiDiScreenState extends State<CuocGoiDiScreen>{
       // retrieve permissions
       await [Permission.microphone, Permission.camera].request();
       //create the engine
-      _engine = await RtcEngine.create(appId);
+      _engine = createAgoraRtcEngine();
+      await _engine.initialize(const RtcEngineContext(
+        appId: appId,
+        channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
+      ));
       await _engine.enableVideo();
-      _engine.setEventHandler(
+      _engine.registerEventHandler(
         RtcEngineEventHandler(
-          joinChannelSuccess: (String channel, int uid, int elapsed) {
-            print("local user $uid joined");
+          onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+            debugPrint("local user ${connection.localUid} joined");
+
             setState(() {
               _localUserJoined = true;
             });
           },
-          userJoined: (int uid, int elapsed) {
-            print("remote user $uid joined");
+          onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
+            debugPrint("remote user $remoteUid joined");
             setState(() {
-              _remoteUid = uid;
+              _remoteUid = remoteUid;
             });
           },
-          userOffline: (int uid, UserOfflineReason reason) {
-            print("remote user $uid left channel");
+          onUserOffline: (RtcConnection connection, int remoteUid, UserOfflineReasonType reason) {
+            debugPrint("remote user $remoteUid left channel");
             setState(() {
               _remoteUid = null;
             });
           },
+          onTokenPrivilegeWillExpire: (RtcConnection connection, String token) {
+            debugPrint('[onTokenPrivilegeWillExpire] connection: ${connection.toJson()}, token: $token');
+          },
         ),
       );
-      await _engine.joinChannelWithUserAccount(res.data!.token, channelName, Global.user!.username);
+      //await _engine.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
+
+      await _engine.startPreview();
+      ChannelMediaOptions options = const ChannelMediaOptions(
+        clientRoleType: ClientRoleType.clientRoleBroadcaster,
+        channelProfile: ChannelProfileType.channelProfileCommunication,
+      );
+      await _engine.joinChannelWithUserAccount(
+        token: res.data!.token,
+        channelId: Global.channelName!,
+        userAccount: Global.user!.username,
+        options: options,
+      );
     }else{
-      print(res.message!);
       Fluttertoast.showToast(
           msg: res.message!,
           toastLength: Toast.LENGTH_SHORT,
@@ -99,7 +116,12 @@ class CuocGoiDiScreenState extends State<CuocGoiDiScreen>{
       width: leftWidthLocalVideoContainer, height: topHeightLocalVideoContainer,
       child: Center(
         child: _localUserJoined
-            ? const RtcLocalView.SurfaceView()
+            ? AgoraVideoView(
+          controller: VideoViewController(
+            rtcEngine: _engine,
+            canvas: const VideoCanvas(uid: 0),
+          ),
+        )
             : const CircularProgressIndicator(),
       ),
     );
@@ -108,9 +130,12 @@ class CuocGoiDiScreenState extends State<CuocGoiDiScreen>{
   // Display remote user's video
   Widget remoteVideo() {
     if (_remoteUid != null) {
-      return RtcRemoteView.SurfaceView(
-        uid: _remoteUid!,
-        channelId: Global.channelName!,
+      return AgoraVideoView(
+        controller: VideoViewController.remote(
+          rtcEngine: _engine,
+          canvas: VideoCanvas(uid: _remoteUid),
+          connection: RtcConnection(channelId: Global.channelName),
+        ),
       );
     } else {
       return const Center(child: Text(
@@ -199,11 +224,15 @@ class CuocGoiDiScreenState extends State<CuocGoiDiScreen>{
         children: [
           GestureDetector(
             onTap: (){
-              showBarModalBottomSheet(
+              showModalBottomSheet<void>(
                 context: context,
-                barrierColor: Colors.black.withOpacity(0.03),
-                backgroundColor: Colors.transparent,
-                builder: (context) => buildModal(context),
+                builder: (BuildContext context) {
+                  return Container(
+                      height: 100,
+                      color: Colors.black.withOpacity(0.03),
+                      child: buildModal(context)
+                  );
+                },
               );
             },
             child: remoteVideo(),

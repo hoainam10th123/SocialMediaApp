@@ -6,7 +6,7 @@ import java.lang.reflect.Type
 
 object Constanst {
     var TOKEN: String = ""
-    const val HUB_URL: String = "http://10.0.2.2:5291/hubs/"
+    const val HUB_URL: String = "http://192.168.1.9:5291/hubs/"
     var currentUsername: String = ""
 
     var contacts = ArrayList<Member>()

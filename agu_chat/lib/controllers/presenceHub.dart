@@ -47,13 +47,13 @@ class PresenceHubController extends GetxController {
 
   _myFunction(Exception? error) => print(error.toString());
 
-  void _broadcastCommentReceived(List<Object>? parameters) {
+  void _broadcastCommentReceived(List<Object?>? parameters) {
     final json = parameters![0] as Map<String, dynamic>;
     final comment = Comment.fromJson(json);
     Global.myStream!.sendComment(comment);
   }
 
-  void _displayInformationCallerReceived(List<Object>? parameters) {
+  void _displayInformationCallerReceived(List<Object?>? parameters) {
     //neu app trong background thi khong show cuoc goi den, xu ly trong background mode duoi native
     if(Global.myStream!.isInForeground){
       final memberCallingJson = parameters![0] as Map<String, dynamic>;
@@ -64,13 +64,13 @@ class PresenceHubController extends GetxController {
     }
   }
 
-  void _userIsOnline(List<Object>? parameters) {
+  void _userIsOnline(List<Object?>? parameters) {
     final memberServer = parameters![0] as Map<String, dynamic>;
     final member = Member.fromJson(memberServer);
     users.add(member);
   }
 
-  void _userIsOffline(List<Object>? parameters) {
+  void _userIsOffline(List<Object?>? parameters) {
     final String username = parameters![0].toString();
     for (var user in users) {
       if (user.userName == username) {
@@ -80,7 +80,7 @@ class PresenceHubController extends GetxController {
     }
   }
 
-  void _getOnlineUsers(List<Object>? parameters) {
+  void _getOnlineUsers(List<Object?>? parameters) {
     final memberServer = parameters![0] as List<dynamic>;
     /*users.clear();
     for (var element in memberServer) {
@@ -91,7 +91,7 @@ class PresenceHubController extends GetxController {
     users.value = listMember;
   }
 
-  void _newMessageReceived(List<Object>? parameters) {
+  void _newMessageReceived(List<Object?>? parameters) {
     final memberServer = parameters![0] as Map<String, dynamic>;
     final member = Member.fromJson(memberServer);
 

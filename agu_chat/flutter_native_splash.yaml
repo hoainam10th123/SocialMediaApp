@@ -12,7 +12,7 @@ flutter_native_splash:
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
   color: "#42a5f5"
   image: assets/netcore.png
-  android: true
+  #android: true
 
   # Optional parameters are listed below.  To enable a parameter, uncomment the line by removing
   # the leading # character.
@@ -51,7 +51,7 @@ flutter_native_splash:
   # 640 pixels in diameter.
   # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
   # 768 pixels in diameter.
-  #image: assets/android12splash.png
+    image: assets/netcore.png
 
   # Splash screen background color.
   #color: "#42a5f5"
@@ -71,8 +71,8 @@ flutter_native_splash:
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.
-  #android: false
-  #ios: false
+  android: true
+  ios: true
   #web: false
 
   # Platform specific images can be specified with the following parameters, which will override

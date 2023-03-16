@@ -1,10 +1,8 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controllers/presenceHub.dart';
-import '../../../stream/unReadMessage.dart';
 import '../../../utils/const.dart';
-import '../../../utils/global.dart';
+import 'package:badges/badges.dart' as badges;
 
 class UserItem extends StatelessWidget {
   final String username;
@@ -83,7 +81,7 @@ class UserItem extends StatelessWidget {
                 ],
               ),
             ),
-            Badge(
+            badges.Badge(
                 badgeContent: getBadgeText()
             ),
           ],

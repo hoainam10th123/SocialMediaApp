@@ -27,7 +27,7 @@ class MessagesHubController extends GetxController {
     }
   }
 
-  void _receiveMessageThread(List<Object>? parameters) {
+  void _receiveMessageThread(List<Object?>? parameters) {
     final messagesFromServer = parameters![0] as List<dynamic>;
 
     /*for (var element in messagesFromServer) {
@@ -40,7 +40,7 @@ class MessagesHubController extends GetxController {
     messages.value = listMessage;
   }
 
-  void _newMessage(List<Object>? parameters) {
+  void _newMessage(List<Object?>? parameters) {
     final message = parameters![0] as Map<String, dynamic>;
     final mess = Message.fromJson(message);
     messages.add(mess);

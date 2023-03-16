@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 import '../../../utils/const.dart';
@@ -36,7 +36,7 @@ class GroupItem extends StatelessWidget{
                 ],
               ),
             ),
-            Badge(
+            badges.Badge(
               badgeContent: Text('3', style: TextStyle(color: Colors.white, fontSize: 18),),
             )
           ],

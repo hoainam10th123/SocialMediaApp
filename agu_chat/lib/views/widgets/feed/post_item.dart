@@ -1,6 +1,5 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../models/post.dart';
 import '../../../utils/const.dart';
 import '../../detail_photo_screen.dart';
@@ -108,11 +107,16 @@ class PostItem extends StatelessWidget {
                         ],
                       )
                   ),
-                  Badge(
-                    toAnimate: false,
-                    shape: BadgeShape.square,
-                    badgeColor: Colors.deepPurple,
-                    borderRadius: BorderRadius.circular(8),
+                  badges.Badge(
+                    badgeAnimation: const badges.BadgeAnimation.slide(
+                      toAnimate: true,
+                      animationDuration: Duration(seconds: 1)
+                    ),
+                    badgeStyle: badges.BadgeStyle(
+                      shape: badges.BadgeShape.square,
+                      badgeColor: Colors.deepPurple,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     badgeContent: buildCategoryPost(),
                   ),
                 ],
@@ -165,10 +169,15 @@ class PostItem extends StatelessWidget {
               ),
               InkWell(
                 onTap: (){
-                  showBarModalBottomSheet(
+                  showModalBottomSheet(
+                    isScrollControlled: true,
                     context: context,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) => ModalListComment(postId: post.id, totalComments: post.comments.length,),
+                    builder: (BuildContext context) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.95,
+                        child: ModalListComment(postId: post.id, totalComments: post.comments.length,),
+                      );
+                    },
                   );
                 },
                 child: Row(

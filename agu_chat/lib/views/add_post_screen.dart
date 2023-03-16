@@ -2,6 +2,7 @@
 import 'package:agu_chat/services/postService.dart';
 import 'package:agu_chat/utils/global.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPostScreen extends StatefulWidget{
@@ -30,7 +31,16 @@ class AddPostScreenState extends State<AddPostScreen>{
         actions: [
           IconButton(
               onPressed: (){
-                PostService().savePost(files: images, content: contentController.text).then((value) => print(value));
+                PostService().savePost(files: images, content: contentController.text)
+                    .then((value) => Fluttertoast.showToast(
+                    msg: value,
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                ));
               },
               icon: const Icon(Icons.save)
           )
